@@ -8,7 +8,10 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(#dff4ff, #fff2b3);
+      /* Fondo con gradiente de arcoíris suave */
+      background: linear-gradient(135deg, #ff9999, #ffcc99, #ffff99, #99ff99, #99ccff, #cc99ff);
+      background-size: 200% 200%;
+      animation: mover-fondo 10s ease infinite;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -16,6 +19,14 @@
       position: relative;
       overflow: hidden;
     }
+
+    /* Pequeña animación para que el fondo arcoíris se mueva suavemente */
+    @keyframes mover-fondo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .fondo-granja {
       position: fixed;
       left: 0;
@@ -83,34 +94,22 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1;
-      animation: flotar-nube-pollito 4.5s ease-in-out infinite alternate;
+      animation: flotar-nube-arcoiris-anim 4.5s ease-in-out infinite alternate;
     }
 
     @keyframes flotar-nube-1 {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(10px);
-      }
+      from { transform: translateY(0); }
+      to { transform: translateY(10px); }
     }
 
     @keyframes flotar-nube-2 {
-      from {
-        transform: translateY(0) translateX(0);
-      }
-      to {
-        transform: translateY(-8px) translateX(-10px);
-      }
+      from { transform: translateY(0) translateX(0); }
+      to { transform: translateY(-8px) translateX(-10px); }
     }
 
-    @keyframes flotar-nube-pollito {
-      from {
-        transform: translateX(-50%) translateY(0) rotate(-1deg);
-      }
-      to {
-        transform: translateX(-50%) translateY(12px) rotate(1deg);
-      }
+    @keyframes flotar-nube-arcoiris-anim {
+      from { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+      to { transform: translateX(-50%) translateY(12px) rotate(1deg); }
     }
 
     @keyframes brillo-sol {
@@ -124,7 +123,7 @@
       }
     }
 
-    #pasto-pollitos {
+    #zona-arcoiris {
       position: fixed;
       left: 0;
       bottom: 0;
@@ -134,7 +133,7 @@
       overflow: hidden;
       pointer-events: none;
     }
-    .pollito-suelto {
+    .arcoiris-suelto {
       position: absolute;
       font-size: 75px;
       cursor: grab;
@@ -143,7 +142,7 @@
       pointer-events: auto;
       transition: transform 0.15s;
     }
-    .pollito-suelto:active {
+    .arcoiris-suelto:active {
       cursor: grabbing;
       transform: scale(1.15);
     }
@@ -154,9 +153,9 @@
       left: 50%;
       transform: translateX(-50%);
 
-      background-color: #fff1a8;
-      color: #9a6500;
-      border: 3px solid #f4b400;
+      background-color: #f3e5f5;
+      color: #6a1b9a;
+      border: 3px solid #ab47bc;
       border-radius: 18px;
 
       padding: 8px 22px;
@@ -171,8 +170,8 @@
     .contenedor {
       position: relative;
       z-index: 2;
-      background-color: rgba(255, 248, 220, 0.95);
-      border: 5px solid #f4b400;
+      background-color: rgba(255, 255, 255, 0.95);
+      border: 5px solid #ab47bc; 
       border-radius: 30px;
       padding: 45px 50px;
       text-align: center;
@@ -183,34 +182,34 @@
     }
 
     h1 {
-      color: #d18b00;
+      background: linear-gradient(to right, #ff3b30, #ff9500, #4cd964, #5ac8fa, #007aff, #5856d6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       margin-bottom: 10px;
       font-size: 50px;
     }
-    .pollito {
+    
+    .arcoiris-principal {
       font-size: 100px;
       margin: 10px 0;
       animation: saltito 1s infinite alternate;
     }
 
     @keyframes saltito {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(-10px);
-      }
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
     }
 
     #tiempo {
       font-size: 48px;
       font-weight: bold;
-      color: #7a4b00;
+      color: #4a148c;
       margin: 25px 0;
-      background-color: #fff1a8;
+      background-color: #f3e5f5;
       padding: 15px;
       border-radius: 20px;
-      border: 3px dashed #f4b400;
+      border: 3px dashed #ce93d8;
     }
     .botones button {
       font-size: 18px;
@@ -224,17 +223,17 @@
     }
 
     #play {
-      background-color: #8fd14f;
+      background-color: #4cd964;
       color: white;
     }
 
     #detener {
-      background-color: #ff5757;
+      background-color: #ff3b30;
       color: white;
     }
 
     #reiniciar {
-      background-color: #ff914d;
+      background-color: #007aff;
       color: white;
     }
 
@@ -256,12 +255,12 @@
 
     <img src="images/nube1.png" class="nube-img nube-1" alt="Nube">
     <img src="images/nube2.png" class="nube-img nube-2" alt="Nube">
-    <img src="images/nube3.png" class="nube-img nube-3" alt="Nube pollito">
+    <img src="images/nube3.png" class="nube-img nube-3" alt="Nube arcoíris">
   </div>
 
   <div class="fondo-granja"></div>
 
-  <div id="pasto-pollitos"></div>
+  <div id="zona-arcoiris"></div>
 
   <div class="contenedor">
 
@@ -269,7 +268,7 @@
 
     <h1>Cronómetro Arcoíris</h1>
 
-    <div class="pollito">🌈</div>
+    <div class="arcoiris-principal">🌈</div>
 
     <div id="tiempo">00:00.00</div>
 
@@ -293,27 +292,25 @@
   const boton_detener = document.getElementById("detener");
   const boton_reiniciar = document.getElementById("reiniciar");
 
+  const zona_arcoiris = document.getElementById("zona-arcoiris");
 
-  const pasto_pollitos = document.getElementById("pasto-pollitos");
+  const tiempo_entre_arcoiris = 1 * 60 * 1000;
+  const velocidad_arcoiris = 1.5;
 
-  const tiempo_entre_pollitos = 1 * 60 * 1000;
-  const velocidad_pollito = 1.5;
+  const sonido_arcoiris = new Audio("audio/sonido_pollito.mp3");
+  sonido_arcoiris.volume = 1;
+  sonido_arcoiris.preload = "auto";
 
-  const sonido_pollito = new Audio("audio/sonido_pollito.mp3");
-  sonido_pollito.volume = 1;
-  sonido_pollito.preload = "auto";
-
-  let pollitos = [];
-  let intervalo_pollitos = null;
-  let animacion_pollitos = null;
-  let pollitos_activos = false;
-  let siguiente_pollito_ms = tiempo_entre_pollitos;
-
+  let lista_arcoiris = [];
+  let intervalo_arcoiris = null;
+  let animacion_arcoiris = null;
+  let arcoiris_activos = false;
+  let siguiente_arcoiris_ms = tiempo_entre_arcoiris;
 
   function mostrar_tiempo(ms) {
     let minutos = Math.floor(ms / 60000);
     let segundos = Math.floor((ms % 60000) / 1000);
-    let milesimas = Math.floor((ms % 1000) /10);
+    let milesimas = Math.floor((ms % 1000) / 10);
 
     let minutos_texto = String(minutos).padStart(2, "0");
     let segundos_texto = String(segundos).padStart(2, "0");
@@ -322,15 +319,15 @@
     tiempo.textContent = minutos_texto + ":" + segundos_texto + "." + milesimas_texto;
   }
 
-  function generar_pollitos_por_tiempo(transcurrido) {
-  while (
-    siguiente_pollito_ms <= limite &&
-    transcurrido >= siguiente_pollito_ms
-  ) {
-    crear_pollito();
-    siguiente_pollito_ms += tiempo_entre_pollitos;
+  function generar_arcoiris_por_tiempo(transcurrido) {
+    while (
+      siguiente_arcoiris_ms <= limite &&
+      transcurrido >= siguiente_arcoiris_ms
+    ) {
+      crear_arcoiris();
+      siguiente_arcoiris_ms += tiempo_entre_arcoiris;
+    }
   }
-}
 
   function actualizar_cronometro() {
     let ahora = performance.now();
@@ -339,40 +336,36 @@
     if (transcurrido >= limite) {
       transcurrido = limite;
 
-      generar_pollitos_por_tiempo(transcurrido);
+      generar_arcoiris_por_tiempo(transcurrido);
       mostrar_tiempo(transcurrido);
 
       clearInterval(intervalo);
       intervalo = null;
       tiempo_acumulado = limite;
 
-      detener_pollitos();
+      detener_arcoiris();
 
       return;
     }
 
-    generar_pollitos_por_tiempo(transcurrido);
+    generar_arcoiris_por_tiempo(transcurrido);
     mostrar_tiempo(transcurrido);
   }
 
   function iniciar_cronometro() {
     if (intervalo === null && tiempo_acumulado < limite) {
       tiempo_inicio = performance.now();
-
       intervalo = setInterval(actualizar_cronometro, 10);
-
-      iniciar_pollitos();
+      iniciar_arcoiris();
     }
   }
 
   function detener_cronometro() {
     if (intervalo !== null) {
       tiempo_acumulado += performance.now() - tiempo_inicio;
-
       clearInterval(intervalo);
       intervalo = null;
-
-      detener_pollitos();
+      detener_arcoiris();
     }
   }
 
@@ -383,119 +376,113 @@
     tiempo_inicio = null;
 
     mostrar_tiempo(0);
-
-    reiniciar_pollitos();
+    reiniciar_arcoiris();
   }
 
-
-
-  function reproducir_sonido_pollito() {
-    const sonido = sonido_pollito.cloneNode();
-    sonido.volume = sonido_pollito.volume;
+  function reproducir_sonido_arcoiris() {
+    const sonido = sonido_arcoiris.cloneNode();
+    sonido.volume = sonido_arcoiris.volume;
 
     sonido.play().catch(() => {
     });
   }
 
+  function crear_arcoiris() {
+    const arcoiris_elem = document.createElement("div");
+    arcoiris_elem.classList.add("arcoiris-suelto");
+    arcoiris_elem.textContent = "🌈";
 
+    zona_arcoiris.appendChild(arcoiris_elem);
+    reproducir_sonido_arcoiris();  
 
-  function crear_pollito() {
-    const pollito = document.createElement("div");
-    pollito.classList.add("pollito-suelto");
-    pollito.textContent = "🌈";
-
-    pasto_pollitos.appendChild(pollito);
-    reproducir_sonido_pollito();  
-
-    const size = pollito.offsetWidth || 42;
-    const ancho = pasto_pollitos.clientWidth;
-    const alto = pasto_pollitos.clientHeight;
+    const size = arcoiris_elem.offsetWidth || 42;
+    const ancho = zona_arcoiris.clientWidth;
+    const alto = zona_arcoiris.clientHeight;
 
     const x = Math.random() * (ancho - size);
     const y = Math.random() * (alto - size);
 
     const datos = {
-      elemento: pollito,
+      elemento: arcoiris_elem,
       x,
       y,
-      dx: (Math.random() - 0.5) * velocidad_pollito * 2,
-      dy: (Math.random() - 0.5) * velocidad_pollito * 2,
+      dx: (Math.random() - 0.5) * velocidad_arcoiris * 2,
+      dy: (Math.random() - 0.5) * velocidad_arcoiris * 2,
       arrastrando: false
     };
 
-    actualizar_posicion_pollito(datos);
-    activar_arrastre_pollito(datos);
+    actualizar_posicion_arcoiris(datos);
+    activar_arrastre_arcoiris(datos);
 
-    pollitos.push(datos);
+    lista_arcoiris.push(datos);
   }
 
-  function activar_arrastre_pollito(datos) {
-    const pollito = datos.elemento;
+  function activar_arrastre_arcoiris(datos) {
+    const arcoiris_elem = datos.elemento;
 
     let offsetX = 0;
     let offsetY = 0;
 
-    pollito.addEventListener("pointerdown", (e) => {
+    arcoiris_elem.addEventListener("pointerdown", (e) => {
       datos.arrastrando = true;
 
-      const rect = pollito.getBoundingClientRect();
+      const rect = arcoiris_elem.getBoundingClientRect();
 
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
 
-      pollito.setPointerCapture(e.pointerId);
+      arcoiris_elem.setPointerCapture(e.pointerId);
     });
 
-    pollito.addEventListener("pointermove", (e) => {
+    arcoiris_elem.addEventListener("pointermove", (e) => {
       if (!datos.arrastrando) return;
 
-      const rect_pasto = pasto_pollitos.getBoundingClientRect();
+      const rect_zona = zona_arcoiris.getBoundingClientRect();
 
-      datos.x = e.clientX - rect_pasto.left - offsetX;
-      datos.y = e.clientY - rect_pasto.top - offsetY;
+      datos.x = e.clientX - rect_zona.left - offsetX;
+      datos.y = e.clientY - rect_zona.top - offsetY;
 
-      limitar_pollito_al_pasto(datos);
-      actualizar_posicion_pollito(datos);
+      limitar_arcoiris_a_zona(datos);
+      actualizar_posicion_arcoiris(datos);
     });
 
-    pollito.addEventListener("pointerup", () => {
+    arcoiris_elem.addEventListener("pointerup", () => {
       datos.arrastrando = false;
-
-      datos.dx = (Math.random() - 0.5) * velocidad_pollito * 2;
-      datos.dy = (Math.random() - 0.5) * velocidad_pollito * 2;
+      datos.dx = (Math.random() - 0.5) * velocidad_arcoiris * 2;
+      datos.dy = (Math.random() - 0.5) * velocidad_arcoiris * 2;
     });
 
-    pollito.addEventListener("pointercancel", () => {
+    arcoiris_elem.addEventListener("pointercancel", () => {
       datos.arrastrando = false;
     });
   }
 
-  function limitar_pollito_al_pasto(datos) {
+  function limitar_arcoiris_a_zona(datos) {
     const size = datos.elemento.offsetWidth || 42;
-    const ancho = pasto_pollitos.clientWidth;
-    const alto = pasto_pollitos.clientHeight;
+    const ancho = zona_arcoiris.clientWidth;
+    const alto = zona_arcoiris.clientHeight;
 
     datos.x = Math.max(0, Math.min(ancho - size, datos.x));
     datos.y = Math.max(0, Math.min(alto - size, datos.y));
   }
 
-  function actualizar_posicion_pollito(datos) {
+  function actualizar_posicion_arcoiris(datos) {
     datos.elemento.style.left = datos.x + "px";
     datos.elemento.style.top = datos.y + "px";
   }
 
-  function mover_pollitos() {
-    if (!pollitos_activos) return;
+  function mover_arcoiris() {
+    if (!arcoiris_activos) return;
 
-    pollitos.forEach(datos => {
+    lista_arcoiris.forEach(datos => {
       if (datos.arrastrando) return;
 
       datos.x += datos.dx;
       datos.y += datos.dy;
 
       const size = datos.elemento.offsetWidth || 42;
-      const ancho = pasto_pollitos.clientWidth;
-      const alto = pasto_pollitos.clientHeight;
+      const ancho = zona_arcoiris.clientWidth;
+      const alto = zona_arcoiris.clientHeight;
 
       if (datos.x <= 0 || datos.x >= ancho - size) {
         datos.dx *= -1;
@@ -506,43 +493,41 @@
       }
 
       if (Math.random() < 0.02) {
-        datos.dx = (Math.random() - 0.5) * velocidad_pollito * 2;
-        datos.dy = (Math.random() - 0.5) * velocidad_pollito * 2;
+        datos.dx = (Math.random() - 0.5) * velocidad_arcoiris * 2;
+        datos.dy = (Math.random() - 0.5) * velocidad_arcoiris * 2;
       }
 
-      limitar_pollito_al_pasto(datos);
-      actualizar_posicion_pollito(datos);
+      limitar_arcoiris_a_zona(datos);
+      actualizar_posicion_arcoiris(datos);
     });
 
-    animacion_pollitos = requestAnimationFrame(mover_pollitos);
+    animacion_arcoiris = requestAnimationFrame(mover_arcoiris);
   }
 
-  function iniciar_pollitos() {
-    if (pollitos_activos) return;
+  function iniciar_arcoiris() {
+    if (arcoiris_activos) return;
 
-    pollitos_activos = true;
-    mover_pollitos();
+    arcoiris_activos = true;
+    mover_arcoiris();
   }
 
-  function detener_pollitos() {
-    pollitos_activos = false;
+  function detener_arcoiris() {
+    arcoiris_activos = false;
 
-    cancelAnimationFrame(animacion_pollitos);
-    animacion_pollitos = null;
+    cancelAnimationFrame(animacion_arcoiris);
+    animacion_arcoiris = null;
   }
 
-  function reiniciar_pollitos() {
-    detener_pollitos();
+  function reiniciar_arcoiris() {
+    detener_arcoiris();
 
-    pollitos.forEach(datos => {
+    lista_arcoiris.forEach(datos => {
       datos.elemento.remove();
     });
 
-    pollitos = [];
-    siguiente_pollito_ms = tiempo_entre_pollitos;
+    lista_arcoiris = [];
+    siguiente_arcoiris_ms = tiempo_entre_arcoiris;
   }
-
-
 
   boton_play.addEventListener("click", iniciar_cronometro);
   boton_detener.addEventListener("click", detener_cronometro);
