@@ -8,10 +8,24 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      /* Fondo con gradiente de arcoíris suave */
-      background: linear-gradient(135deg, #ff9999, #ffcc99, #ffff99, #99ff99, #99ccff, #cc99ff);
-      background-size: 200% 200%;
-      animation: mover-fondo 10s ease infinite;
+      
+      /* Degradado gigante con los colores del arcoíris. */
+      background: linear-gradient(135deg, 
+        #ff9999, /* 1. Rojo */
+        #ffcc99, /* 2. Naranja */
+        #ffff99, /* 3. Amarillo */
+        #99ff99, /* 4. Verde */
+        #99ccff, /* 5. Azul */
+        #cc99ff, /* 6. Morado */
+        #ff9999, /* 7. Rojo (Cierra el ciclo) */
+        #ffcc99  /* 8. Naranja (Empata con el inicio) */
+      );
+      
+      background-size: 700% 700%;
+      
+      /* 360s en total / 6 pares de colores = 60 segundos por color */
+      animation: degradado-arcoiris 360s linear infinite;
+      
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -20,131 +34,124 @@
       overflow: hidden;
     }
 
-    /* Pequeña animación para que el fondo arcoíris se mueva suavemente */
-    @keyframes mover-fondo {
+    @keyframes degradado-arcoiris {
       0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
-    .fondo-granja {
+    /* =========================================
+       NUEVO: FONDO DEL CAMPO ESTÁTICO
+       ========================================= */
+    .fondo-campo {
       position: fixed;
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 70vh;
+      height: 45vh; /* Puedes ajustar esta altura si tu imagen es más alta o más bajita */
 
-      background-image: url("images/granja.png");
+      background-image: url("images/campo.png");
       background-repeat: no-repeat;
       background-position: bottom center;
       background-size: 100% auto;
 
-      z-index: 0;
-      pointer-events: none;
+      z-index: 0; /* Al fondo de todo */
+      pointer-events: none; /* Permite hacer clic a través de él para agarrar bolitas */
     }
 
-    .decoracion-cielo {
+    /* =========================================
+       ANIMACIONES Y ESTILOS DE DECORACIÓN 
+       ========================================= */
+    .decoracion-fondo {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 55vh;
-      z-index: 0;
-      pointer-events: none;
+      height: 100%;
+      z-index: 0; /* Comparte el fondo con el campo */
+      pointer-events: none; 
       overflow: hidden;
     }
 
-    .decoracion-cielo img {
+    .decoracion-fondo img {
       position: absolute;
-      object-fit: contain;
       user-select: none;
-      pointer-events: none;
     }
 
-    .sol-img {
-      width: clamp(90px, 10vw, 150px);
-      top: 4vh;
-      right: 25vw;
-      animation: brillo-sol 3s ease-in-out infinite alternate;
+    /* Sol pulsante y rotando ligeramente */
+    .deco-sol {
+      width: clamp(120px, 15vw, 300px);
+      top: 5%;
+      right: 8%;
+      animation: animacion-sol 4s ease-in-out infinite alternate;
     }
 
-    .nube-img {
-      opacity: 0.95;
-      filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.08));
+    @keyframes animacion-sol {
+      from { transform: scale(1) rotate(0deg); }
+      to { 
+        transform: scale(1.08) rotate(5deg); 
+        filter: drop-shadow(0 0 20px rgba(255, 220, 0, 0.7)); 
+      }
     }
 
-    .nube-1 {
-      width: clamp(130px, 16vw, 240px);
-      top: 15vh;
-      left: 15vw;
-      animation: flotar-nube-1 5s ease-in-out infinite alternate;
+    /* Arcoíris flotante */
+    .deco-arcoiris {
+      width: clamp(200px, 25vw, 350px);
+      top: 10%;
+      left: 3%;
+      opacity: 0.9;
+      animation: flotar-arcoiris 6s ease-in-out infinite alternate;
     }
 
-    .nube-2 {
-      width: clamp(110px, 13vw, 210px);
-      top: 24vh;
-      right: 15vw;
+    @keyframes flotar-arcoiris {
+      from { transform: translateY(0) rotate(-2deg); }
+      to { transform: translateY(-15px) rotate(3deg); }
+    }
+
+    /* Nubes oscilantes */
+    .deco-nube {
       opacity: 0.85;
-      animation: flotar-nube-2 6s ease-in-out infinite alternate;
+      animation: flotar-nube 5s ease-in-out infinite alternate;
+      filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15));
     }
 
-    .nube-3 {
-      width: clamp(170px, 10vw, 300px);
-      top: 3vh;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      animation: flotar-nube-arcoiris-anim 4.5s ease-in-out infinite alternate;
-    }
+    .nube1 { width: 180px; top: 18%; left: 20%; animation-duration: 6s; }
+    .nube2 { width: 120px; top: 8%; left: 45%; animation-duration: 4.5s; animation-delay: 1s; }
+    .nube3 { width: 220px; top: 30%; right: 15%; animation-duration: 7s; animation-delay: 2s; }
+    .nube4 { width: 150px; bottom: 20%; left: 10%; animation-duration: 5.5s; animation-delay: 0.5s; opacity: 0.6; }
 
-    @keyframes flotar-nube-1 {
-      from { transform: translateY(0); }
-      to { transform: translateY(10px); }
-    }
-
-    @keyframes flotar-nube-2 {
+    @keyframes flotar-nube {
       from { transform: translateY(0) translateX(0); }
-      to { transform: translateY(-8px) translateX(-10px); }
+      to { transform: translateY(-12px) translateX(10px); }
     }
+    /* ========================================= */
 
-    @keyframes flotar-nube-arcoiris-anim {
-      from { transform: translateX(-50%) translateY(0) rotate(-1deg); }
-      to { transform: translateX(-50%) translateY(12px) rotate(1deg); }
-    }
 
-    @keyframes brillo-sol {
-      from {
-        transform: scale(1);
-        filter: drop-shadow(0 0 4px rgba(255, 196, 0, 0.4));
-      }
-      to {
-        transform: scale(1.05);
-        filter: drop-shadow(0 0 14px rgba(255, 196, 0, 0.65));
-      }
-    }
-
-    #zona-arcoiris {
+    #zona-bolitas {
       position: fixed;
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 20vh;
-      z-index: 1;
+      height: 100vh; 
+      z-index: 1; /* Por encima de la decoración y el campo */
       overflow: hidden;
       pointer-events: none;
     }
-    .arcoiris-suelto {
+
+    .bolita-suelta {
       position: absolute;
-      font-size: 75px;
+      width: 200px; 
+      height: auto;
       cursor: grab;
       user-select: none;
       touch-action: none;
       pointer-events: auto;
       transition: transform 0.15s;
+      filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.25)); 
     }
-    .arcoiris-suelto:active {
+
+    .bolita-suelta:active {
       cursor: grabbing;
-      transform: scale(1.15);
+      transform: scale(1.5); 
     }
 
     .nombre-autor {
@@ -169,7 +176,7 @@
 
     .contenedor {
       position: relative;
-      z-index: 2;
+      z-index: 2; /* Por encima de las bolitas */
       background-color: rgba(255, 255, 255, 0.95);
       border: 5px solid #ab47bc; 
       border-radius: 30px;
@@ -183,8 +190,8 @@
 
     h1 {
       background: linear-gradient(to right, #ff3b30, #ff9500, #4cd964, #5ac8fa, #007aff, #5856d6);
-      background-clip: text;
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
       margin-bottom: 10px;
       font-size: 50px;
@@ -211,6 +218,7 @@
       border-radius: 20px;
       border: 3px dashed #ce93d8;
     }
+
     .botones button {
       font-size: 18px;
       padding: 12px 18px;
@@ -241,6 +249,7 @@
       transform: scale(1.08);
       opacity: 0.9;
     }
+
     .mensaje {
       color: #9a6500;
       font-size: 16px;
@@ -250,17 +259,18 @@
 </head>
 
 <body>
-  <div class="decoracion-cielo">
-    <img src="images/sol.png" class="sol-img" alt="Sol">
 
-    <img src="images/nube1.png" class="nube-img nube-1" alt="Nube">
-    <img src="images/nube2.png" class="nube-img nube-2" alt="Nube">
-    <img src="images/nube3.png" class="nube-img nube-3" alt="Nube arcoíris">
+  <div class="fondo-campo"></div>
+
+  <div class="decoracion-fondo">
+    <img src="images/sol.png" class="deco-sol" alt="Sol animado">
+    <img src="images/arcoiris.png" class="deco-arcoiris" alt="Arcoíris animado">
+    <img src="images/nube.png" class="deco-nube nube1" alt="Nube">
+    <img src="images/nube.png" class="deco-nube nube2" alt="Nube">
+    <img src="images/nube.png" class="deco-nube nube3" alt="Nube">
   </div>
 
-  <div class="fondo-granja"></div>
-
-  <div id="zona-arcoiris"></div>
+  <div id="zona-bolitas"></div>
 
   <div class="contenedor">
 
@@ -292,20 +302,17 @@
   const boton_detener = document.getElementById("detener");
   const boton_reiniciar = document.getElementById("reiniciar");
 
-  const zona_arcoiris = document.getElementById("zona-arcoiris");
+  const zona_bolitas = document.getElementById("zona-bolitas");
 
-  const tiempo_entre_arcoiris = 1 * 60 * 1000;
-  const velocidad_arcoiris = 1.5;
+  const tiempo_entre_bolitas = 1 * 60 * 1000; // 1 minuto exacto
+  const velocidad_bolitas = 1.5;
 
-  const sonido_arcoiris = new Audio("audio/sonido_pollito.mp3");
-  sonido_arcoiris.volume = 1;
-  sonido_arcoiris.preload = "auto";
-
-  let lista_arcoiris = [];
-  let intervalo_arcoiris = null;
-  let animacion_arcoiris = null;
-  let arcoiris_activos = false;
-  let siguiente_arcoiris_ms = tiempo_entre_arcoiris;
+  let lista_bolitas = [];
+  let animacion_bolitas = null;
+  let bolitas_activas = false;
+  
+  // Empezamos en 0 para que la primer bolita salga inmediatamente al dar 'Play'
+  let siguiente_bolita_ms = 0; 
 
   function mostrar_tiempo(ms) {
     let minutos = Math.floor(ms / 60000);
@@ -319,13 +326,16 @@
     tiempo.textContent = minutos_texto + ":" + segundos_texto + "." + milesimas_texto;
   }
 
-  function generar_arcoiris_por_tiempo(transcurrido) {
+  function generar_bolitas_por_tiempo(transcurrido) {
     while (
-      siguiente_arcoiris_ms <= limite &&
-      transcurrido >= siguiente_arcoiris_ms
+      siguiente_bolita_ms <= limite &&
+      transcurrido >= siguiente_bolita_ms
     ) {
-      crear_arcoiris();
-      siguiente_arcoiris_ms += tiempo_entre_arcoiris;
+      // Determinamos en qué minuto estamos para saber qué color de bolita sacar
+      let minuto_actual = Math.floor(siguiente_bolita_ms / 60000);
+      
+      crear_bolita(minuto_actual);
+      siguiente_bolita_ms += tiempo_entre_bolitas;
     }
   }
 
@@ -336,19 +346,19 @@
     if (transcurrido >= limite) {
       transcurrido = limite;
 
-      generar_arcoiris_por_tiempo(transcurrido);
+      generar_bolitas_por_tiempo(transcurrido);
       mostrar_tiempo(transcurrido);
 
       clearInterval(intervalo);
       intervalo = null;
       tiempo_acumulado = limite;
 
-      detener_arcoiris();
+      detener_bolitas();
 
       return;
     }
 
-    generar_arcoiris_por_tiempo(transcurrido);
+    generar_bolitas_por_tiempo(transcurrido);
     mostrar_tiempo(transcurrido);
   }
 
@@ -356,7 +366,7 @@
     if (intervalo === null && tiempo_acumulado < limite) {
       tiempo_inicio = performance.now();
       intervalo = setInterval(actualizar_cronometro, 10);
-      iniciar_arcoiris();
+      iniciar_bolitas();
     }
   }
 
@@ -365,7 +375,7 @@
       tiempo_acumulado += performance.now() - tiempo_inicio;
       clearInterval(intervalo);
       intervalo = null;
-      detener_arcoiris();
+      detener_bolitas();
     }
   }
 
@@ -376,113 +386,116 @@
     tiempo_inicio = null;
 
     mostrar_tiempo(0);
-    reiniciar_arcoiris();
+    reiniciar_bolitas();
   }
 
-  function reproducir_sonido_arcoiris() {
-    const sonido = sonido_arcoiris.cloneNode();
-    sonido.volume = sonido_arcoiris.volume;
+  function crear_bolita(minuto) {
+    const bolita_elem = document.createElement("img");
+    bolita_elem.classList.add("bolita-suelta");
+    bolita_elem.draggable = false; 
 
-    sonido.play().catch(() => {
-    });
-  }
+    const imagenes_bolitas = [
+      "images/bolita_roja.png",
+      "images/bolita_naranja.png",
+      "images/bolita_amarilla.png",
+      "images/bolita_verde.png",
+      "images/bolita_azul.png",
+      "images/bolita_morada.png"
+    ];
 
-  function crear_arcoiris() {
-    const arcoiris_elem = document.createElement("div");
-    arcoiris_elem.classList.add("arcoiris-suelto");
-    arcoiris_elem.textContent = "🌈";
+    const indice = minuto % imagenes_bolitas.length;
+    bolita_elem.src = imagenes_bolitas[indice];
 
-    zona_arcoiris.appendChild(arcoiris_elem);
-    reproducir_sonido_arcoiris();  
+    zona_bolitas.appendChild(bolita_elem);
 
-    const size = arcoiris_elem.offsetWidth || 42;
-    const ancho = zona_arcoiris.clientWidth;
-    const alto = zona_arcoiris.clientHeight;
+    const size = 80; 
+    const ancho = zona_bolitas.clientWidth;
+    const alto = zona_bolitas.clientHeight;
 
     const x = Math.random() * (ancho - size);
     const y = Math.random() * (alto - size);
 
     const datos = {
-      elemento: arcoiris_elem,
+      elemento: bolita_elem,
       x,
       y,
-      dx: (Math.random() - 0.5) * velocidad_arcoiris * 2,
-      dy: (Math.random() - 0.5) * velocidad_arcoiris * 2,
+      dx: (Math.random() - 0.5) * velocidad_bolitas * 2,
+      dy: (Math.random() - 0.5) * velocidad_bolitas * 2,
       arrastrando: false
     };
 
-    actualizar_posicion_arcoiris(datos);
-    activar_arrastre_arcoiris(datos);
+    actualizar_posicion_bolita(datos);
+    activar_arrastre_bolita(datos);
 
-    lista_arcoiris.push(datos);
+    lista_bolitas.push(datos);
   }
 
-  function activar_arrastre_arcoiris(datos) {
-    const arcoiris_elem = datos.elemento;
+  function activar_arrastre_bolita(datos) {
+    const bolita_elem = datos.elemento;
 
     let offsetX = 0;
     let offsetY = 0;
 
-    arcoiris_elem.addEventListener("pointerdown", (e) => {
+    bolita_elem.addEventListener("pointerdown", (e) => {
       datos.arrastrando = true;
 
-      const rect = arcoiris_elem.getBoundingClientRect();
+      const rect = bolita_elem.getBoundingClientRect();
 
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
 
-      arcoiris_elem.setPointerCapture(e.pointerId);
+      bolita_elem.setPointerCapture(e.pointerId);
     });
 
-    arcoiris_elem.addEventListener("pointermove", (e) => {
+    bolita_elem.addEventListener("pointermove", (e) => {
       if (!datos.arrastrando) return;
 
-      const rect_zona = zona_arcoiris.getBoundingClientRect();
+      const rect_zona = zona_bolitas.getBoundingClientRect();
 
       datos.x = e.clientX - rect_zona.left - offsetX;
       datos.y = e.clientY - rect_zona.top - offsetY;
 
-      limitar_arcoiris_a_zona(datos);
-      actualizar_posicion_arcoiris(datos);
+      limitar_bolita_a_zona(datos);
+      actualizar_posicion_bolita(datos);
     });
 
-    arcoiris_elem.addEventListener("pointerup", () => {
+    bolita_elem.addEventListener("pointerup", () => {
       datos.arrastrando = false;
-      datos.dx = (Math.random() - 0.5) * velocidad_arcoiris * 2;
-      datos.dy = (Math.random() - 0.5) * velocidad_arcoiris * 2;
+      datos.dx = (Math.random() - 0.5) * velocidad_bolitas * 2;
+      datos.dy = (Math.random() - 0.5) * velocidad_bolitas * 2;
     });
 
-    arcoiris_elem.addEventListener("pointercancel", () => {
+    bolita_elem.addEventListener("pointercancel", () => {
       datos.arrastrando = false;
     });
   }
 
-  function limitar_arcoiris_a_zona(datos) {
-    const size = datos.elemento.offsetWidth || 42;
-    const ancho = zona_arcoiris.clientWidth;
-    const alto = zona_arcoiris.clientHeight;
+  function limitar_bolita_a_zona(datos) {
+    const size = datos.elemento.offsetWidth || 80;
+    const ancho = zona_bolitas.clientWidth;
+    const alto = zona_bolitas.clientHeight;
 
     datos.x = Math.max(0, Math.min(ancho - size, datos.x));
     datos.y = Math.max(0, Math.min(alto - size, datos.y));
   }
 
-  function actualizar_posicion_arcoiris(datos) {
+  function actualizar_posicion_bolita(datos) {
     datos.elemento.style.left = datos.x + "px";
     datos.elemento.style.top = datos.y + "px";
   }
 
-  function mover_arcoiris() {
-    if (!arcoiris_activos) return;
+  function mover_bolitas() {
+    if (!bolitas_activas) return;
 
-    lista_arcoiris.forEach(datos => {
+    lista_bolitas.forEach(datos => {
       if (datos.arrastrando) return;
 
       datos.x += datos.dx;
       datos.y += datos.dy;
 
-      const size = datos.elemento.offsetWidth || 42;
-      const ancho = zona_arcoiris.clientWidth;
-      const alto = zona_arcoiris.clientHeight;
+      const size = datos.elemento.offsetWidth || 80;
+      const ancho = zona_bolitas.clientWidth;
+      const alto = zona_bolitas.clientHeight;
 
       if (datos.x <= 0 || datos.x >= ancho - size) {
         datos.dx *= -1;
@@ -493,40 +506,42 @@
       }
 
       if (Math.random() < 0.02) {
-        datos.dx = (Math.random() - 0.5) * velocidad_arcoiris * 2;
-        datos.dy = (Math.random() - 0.5) * velocidad_arcoiris * 2;
+        datos.dx = (Math.random() - 0.5) * velocidad_bolitas * 2;
+        datos.dy = (Math.random() - 0.5) * velocidad_bolitas * 2;
       }
 
-      limitar_arcoiris_a_zona(datos);
-      actualizar_posicion_arcoiris(datos);
+      limitar_bolita_a_zona(datos);
+      actualizar_posicion_bolita(datos);
     });
 
-    animacion_arcoiris = requestAnimationFrame(mover_arcoiris);
+    animacion_bolitas = requestAnimationFrame(mover_bolitas);
   }
 
-  function iniciar_arcoiris() {
-    if (arcoiris_activos) return;
+  function iniciar_bolitas() {
+    if (bolitas_activas) return;
 
-    arcoiris_activos = true;
-    mover_arcoiris();
+    bolitas_activas = true;
+    mover_bolitas();
   }
 
-  function detener_arcoiris() {
-    arcoiris_activos = false;
+  function detener_bolitas() {
+    bolitas_activas = false;
 
-    cancelAnimationFrame(animacion_arcoiris);
-    animacion_arcoiris = null;
+    if (animacion_bolitas !== null) {
+      cancelAnimationFrame(animacion_bolitas);
+      animacion_bolitas = null;
+    }
   }
 
-  function reiniciar_arcoiris() {
-    detener_arcoiris();
+  function reiniciar_bolitas() {
+    detener_bolitas();
 
-    lista_arcoiris.forEach(datos => {
+    lista_bolitas.forEach(datos => {
       datos.elemento.remove();
     });
 
-    lista_arcoiris = [];
-    siguiente_arcoiris_ms = tiempo_entre_arcoiris;
+    lista_bolitas = [];
+    siguiente_bolita_ms = 0; 
   }
 
   boton_play.addEventListener("click", iniciar_cronometro);
